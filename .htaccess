@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    Options -Indexes
+
+    # Block access to internal application directories
+    RewriteRule ^(src|views|database|tests|vendor) - [F,L]
+
+    # Block access to sensitive and configuration files
+    RewriteRule \.(env.*|sql|json|lock|xml|md|git.*)$ - [F,L]
+
+    # Route all other web traffic to the public directory
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
