@@ -22,5 +22,9 @@ Thumbs.db
 *.swp
 *.swo
 
-# Temporary directories
-https:/
+# Temporary directories & caches
+.phpunit.cache/
+.phpunit.result.cache
+/tmp/
+*.tmp
+*.log
